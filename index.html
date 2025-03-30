@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gerador de Link do WhatsApp</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding: 20px;
+        }
+        input, button {
+            margin: 10px;
+            padding: 10px;
+            font-size: 16px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Gerador de Link do WhatsApp</h1>
+    <p>Insira um número de telefone e uma mensagem opcional para gerar um link de WhatsApp.</p>
+    <input type="text" id="phone" placeholder="Digite o número com DDD">
+    <input type="text" id="message" placeholder="Digite a mensagem (opcional)">
+    <button onclick="generateLink()">Gerar Link</button>
+    <p id="result"></p>
+
+    <script>
+        function generateLink() {
+            let phone = document.getElementById('phone').value.trim();
+            let message = document.getElementById('message').value.trim();
+            
+            if (phone === '') {
+                alert('Por favor, insira um número de telefone.');
+                return;
+            }
+            
+            let link = `https://wa.me/${phone}`;
+            if (message !== '') {
+                let encodedMessage = encodeURIComponent(message);
+                link += `?text=${encodedMessage}`;
+            }
+            
+            document.getElementById('result').innerHTML = `<a href="${link}" target="_blank">Abrir no WhatsApp</a>`;
+        }
+    </script>
+</body>
+</html>
