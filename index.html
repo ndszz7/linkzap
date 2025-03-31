@@ -15,6 +15,29 @@
             padding: 10px;
             font-size: 16px;
         }
+        .link-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: 20px;
+        }
+        #result {
+            width: 300px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            text-align: left;
+            font-size: 16px;
+            word-break: break-all;
+        }
+        .copy-btn {
+            margin-left: 10px;
+            padding: 10px;
+            cursor: pointer;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            font-size: 16px;
+        }
     </style>
 </head>
 <body>
@@ -23,7 +46,11 @@
     <input type="text" id="phone" placeholder="Digite o número com DDD">
     <input type="text" id="message" placeholder="Digite a mensagem (opcional)">
     <button onclick="generateLink()">Gerar Link</button>
-    <p id="result"></p>
+    
+    <div class="link-container" id="linkContainer" style="display: none;">
+        <input type="text" id="result" readonly>
+        <button class="copy-btn" onclick="copyLink()">Copiar</button>
+    </div>
 
     <script>
         function generateLink() {
@@ -41,7 +68,15 @@
                 link += `?text=${encodedMessage}`;
             }
             
-            document.getElementById('result').innerHTML = `<a href="${link}" target="_blank">Abrir no WhatsApp</a>`;
+            document.getElementById('result').value = link;
+            document.getElementById('linkContainer').style.display = 'flex';
+        }
+        
+        function copyLink() {
+            let linkField = document.getElementById('result');
+            linkField.select();
+            document.execCommand('copy');
+            alert('Link copiado!');
         }
     </script>
 </body>
