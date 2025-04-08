@@ -5,73 +5,185 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gerador de Link do WhatsApp</title>
     <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
         body {
-            font-family: Arial, sans-serif;
-            text-align: center;
-            padding: 20px;
-        }
-        input, button {
-            margin: 10px;
-            padding: 10px;
-            font-size: 16px;
-        }
-        .link-container {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(to bottom right, #0a0f2c, #1c2b50);
+            color: white;
+            min-height: 100vh;
             display: flex;
-            justify-content: center;
+            flex-direction: column;
             align-items: center;
-            margin-top: 20px;
+            justify-content: center;
+            padding: 20px;
+            text-align: center;
+            animation: fadeIn 1s ease-in;
         }
-        #result {
-            width: 300px;
-            padding: 10px;
-            border: 1px solid #ccc;
-            text-align: left;
+
+        h1 {
+            font-size: 2rem;
+            margin-bottom: 20px;
+        }
+
+        p {
+            margin-bottom: 20px;
+        }
+
+        input, button {
+            padding: 12px;
             font-size: 16px;
-            word-break: break-all;
+            border: none;
+            border-radius: 8px;
+            margin: 5px 0;
+            width: 100%;
+            max-width: 400px;
+            transition: all 0.3s ease;
         }
-        .copy-btn {
-            margin-left: 10px;
-            padding: 10px;
-            cursor: pointer;
+
+        input {
+            background-color: #f0f0f0;
+            color: #333;
+        }
+
+        button {
             background-color: #28a745;
             color: white;
+            font-weight: bold;
+        }
+
+        button:hover {
+            background-color: #218838;
+            transform: scale(1.05);
+        }
+
+        .link-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 20px;
+            animation: slideUp 0.6s ease-out;
+        }
+
+        #result {
+            width: 100%;
+            max-width: 400px;
+            padding: 12px;
+            margin-bottom: 10px;
+            border-radius: 8px;
             border: none;
-            font-size: 16px;
+            background-color: #ffffff;
+            color: #000000;
+        }
+
+        .copy-btn {
+            background-color: #007bff;
+            color: white;
+        }
+
+        .copy-btn:hover {
+            background-color: #0056b3;
+            transform: scale(1.05);
+        }
+
+        .social-container {
+            margin-top: 30px;
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .social-icon {
+            width: 40px;
+            height: 40px;
+            transition: transform 0.3s;
+        }
+
+        .social-icon:hover {
+            transform: scale(1.2);
+        }
+
+        .username {
+            margin-top: 15px;
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes slideUp {
+            from { transform: translateY(20px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        @media (max-width: 600px) {
+            h1 {
+                font-size: 1.5rem;
+            }
+
+            input, button, #result {
+                width: 90%;
+            }
         }
     </style>
 </head>
 <body>
     <h1>Gerador de Link do WhatsApp</h1>
     <p>Insira um número de telefone e uma mensagem opcional para gerar um link de WhatsApp.</p>
+
     <input type="text" id="phone" placeholder="Digite o número com DDD">
     <input type="text" id="message" placeholder="Digite a mensagem (opcional)">
     <button onclick="generateLink()">Gerar Link</button>
-    
+
     <div class="link-container" id="linkContainer" style="display: none;">
         <input type="text" id="result" readonly>
         <button class="copy-btn" onclick="copyLink()">Copiar</button>
     </div>
 
+    <div class="social-container">
+        <a href="https://www.instagram.com/ndszz7" target="_blank">
+            <img src="https://cdn-icons-png.flaticon.com/512/2111/2111463.png" alt="Instagram" class="social-icon">
+        </a>
+        <a href="https://www.tiktok.com/@yndszz7" target="_blank">
+            <img src="https://cdn-icons-png.flaticon.com/512/3046/3046127.png" alt="TikTok" class="social-icon">
+        </a>
+        <a href="https://wa.me/559285340003" target="_blank">
+            <img src="https://cdn-icons-png.flaticon.com/512/733/733585.png" alt="WhatsApp" class="social-icon">
+        </a>
+        <a href="https://www.capcut.com/profile/REs3hL9VU_7AND1en8JDjF4ZjGwYb1k7ozBSSpv7gbs" target="_blank">
+            <img src="https://freelogopng.com/images/all_img/1664284836cap-cut-logo-png.png" alt="CapCut" class="social-icon">
+        </a>
+    </div>
+    <div class="username">yNdszz7</div>
+
     <script>
         function generateLink() {
             let phone = document.getElementById('phone').value.trim();
             let message = document.getElementById('message').value.trim();
-            
+
             if (phone === '') {
                 alert('Por favor, insira um número de telefone.');
                 return;
             }
-            
+
             let link = `https://wa.me/${phone}`;
             if (message !== '') {
                 let encodedMessage = encodeURIComponent(message);
                 link += `?text=${encodedMessage}`;
             }
-            
+
             document.getElementById('result').value = link;
             document.getElementById('linkContainer').style.display = 'flex';
         }
-        
+
         function copyLink() {
             let linkField = document.getElementById('result');
             linkField.select();
